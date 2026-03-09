@@ -124,11 +124,12 @@
         <h2 class="title is-3">Method</h2>
         <div class="content has-text-justified">
           <p style="font-size: 0.9em; color: #666; margin-top: 10px; text-align: left;">
-            <b>Figure 1: Overview of the SMVRT architecture.</b> Given multi-modal inputs (RGB, normal, depth, and Plücker rays), our pipeline extracts 2D features and processes them through three core fusion stages: 
+            <b>Overview of the SMVRT architecture.</b> Given multi-modal inputs (RGB, normal, depth, and Plücker rays), our pipeline extracts 2D features and processes them through three core fusion stages: 
             <b>(1) AFM</b> (Alternating Fusion Module) for global 2D feature regularization using Transformer/Mamba blocks; 
             <b>(2) MMFT</b> (Multi-Level Multi-View Feature Transformer) to construct a spatially coherent 3D feature volume from warped 2D features; and 
             <b>(3) QFT</b> (Query Point 3D-2D Fusion Transformer) which aggregates trilinearly sampled 3D features with low-level 2D features to decode high-fidelity 3D occupancy via an MLP.
           </p>
+          <img src="./static/images/pipeline.svg" alt="SMVRT Architecture Pipeline" style="width: 100%; border-radius: 8px;">
             <i>The full abstract, comprehensive evaluation results, and project materials are currently being prepared for the upcoming CVPR conference and will be released on this page shortly.</i>
           </p>
         </div>
