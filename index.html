@@ -105,11 +105,9 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We present <b>SMVRT</b>, a novel architecture for Implicit Human 3D Modeling Using Sparse Multi-View Volumetric Reconstruction with Transformer Fusion. 
-          </p>
-          <p>
-            Our approach leverages carefully designed AFM, MMFT, and QFT modules to effectively fuse multi-view features and accurately reconstruct high-fidelity 3D human geometry even under sparse camera setups. By combining the strengths of volumetric representation and Transformer-based feature aggregation, SMVRT achieves state-of-the-art performance on challenging human reconstruction benchmarks.
-          </p>
+            Recently, the community has witnessed significant progress in human modeling from single or multi-view inputs. However, these approaches often rely on guessing the occluded regions through either generative models or template fitting. In this work, we address these challenges by exploring optimal fusion strategies using only sparse multi-view inputs. We propose <b>SMVRT</b>, an end-to-end implicit 3D reconstruction framework for sparse multi-view human modeling. Our key contribution lies in the fusion blocks at three stages of the network. 
+            First, local and global features alternative fusion modules are designed to enhance 2D features. Second, attentional fusion is performed on warped multi-view and multi-level 2D features to form 3D feature grid. The feature grid aggregates spatially coherent multi-view features by 3D regularization. Third, attentional 2D-3D feature aggregation generates the enhanced latent embeddings for query points to decode occupancies. 
+            Experiments on the THUman 2.0/2.1, MultiGarment and MultiHuman datasets demonstrate that our system significantly outperforms state-of-the-art methods both qualitatively and quantitatively.
           <p>
             <i>The full abstract, comprehensive evaluation results, and project materials are currently being prepared for the upcoming CVPR conference and will be released on this page shortly.</i>
           </p>
