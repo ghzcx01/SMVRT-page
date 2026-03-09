@@ -43,7 +43,7 @@
             <span class="author-block">
               <a href="#">Chuanmao Fan</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="#">Chenxi Zhao</a><sup>2</sup>
+              <a href="#">Chenxi Zhao</a><sup>2</sup>,</span>
             <span class="author-block">
               <a href="#">Ye Duan</a><sup>2</sup>  
             </span>
@@ -110,7 +110,25 @@
             Recently, the community has witnessed significant progress in human modeling from single or multi-view inputs. However, these approaches often rely on guessing the occluded regions through either generative models or template fitting. In this work, we address these challenges by exploring optimal fusion strategies using only sparse multi-view inputs. We propose <b>SMVRT</b>, an end-to-end implicit 3D reconstruction framework for sparse multi-view human modeling. Our key contribution lies in the fusion blocks at three stages of the network. 
             First, local and global features alternative fusion modules are designed to enhance 2D features. Second, attentional fusion is performed on warped multi-view and multi-level 2D features to form 3D feature grid. The feature grid aggregates spatially coherent multi-view features by 3D regularization. Third, attentional 2D-3D feature aggregation generates the enhanced latent embeddings for query points to decode occupancies. 
             Experiments on the THUman 2.0/2.1, MultiGarment and MultiHuman datasets demonstrate that our system significantly outperforms state-of-the-art methods both qualitatively and quantitatively.
-          <p>
+          </p>
+        </div>
+      </div>
+    </div>
+    </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <p style="font-size: 0.9em; color: #666; margin-top: 10px; text-align: left;">
+            <b>Figure 1: Overview of the SMVRT architecture.</b> Given multi-modal inputs (RGB, normal, depth, and Plücker rays), our pipeline extracts 2D features and processes them through three core fusion stages: 
+            <b>(1) AFM</b> (Alternating Fusion Module) for global 2D feature regularization using Transformer/Mamba blocks; 
+            <b>(2) MMFT</b> (Multi-Level Multi-View Feature Transformer) to construct a spatially coherent 3D feature volume from warped 2D features; and 
+            <b>(3) QFT</b> (Query Point 3D-2D Fusion Transformer) which aggregates trilinearly sampled 3D features with low-level 2D features to decode high-fidelity 3D occupancy via an MLP.
+          </p>
             <i>The full abstract, comprehensive evaluation results, and project materials are currently being prepared for the upcoming CVPR conference and will be released on this page shortly.</i>
           </p>
         </div>
@@ -118,6 +136,9 @@
     </div>
     </div>
 </section>
+
+
+
 
 <section class="section" id="BibTeX">
   <!-- <div class="container is-max-desktop content">
