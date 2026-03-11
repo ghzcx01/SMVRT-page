@@ -141,28 +141,6 @@
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Method</h2>
-        <div class="content has-text-justified">
-          <p style="font-size: 0.9em; color: #666; margin-top: 10px; text-align: left;">
-            <b>Overview of the SMVRT architecture.</b> Given multi-modal inputs (RGB, normal, depth, and Plücker rays), our pipeline extracts 2D features and processes them through three core fusion stages: 
-            <b>(1) AFM</b> (Alternating Fusion Module) for global 2D feature regularization using Transformer/Mamba blocks; 
-            <b>(2) MMFT</b> (Multi-Level Multi-View Feature Transformer) to construct a spatially coherent 3D feature volume from warped 2D features; and 
-            <b>(3) QFT</b> (Query Point 3D-2D Fusion Transformer) which aggregates trilinearly sampled 3D features with low-level 2D features to decode high-fidelity 3D occupancy via an MLP.
-          </p>
-          <img src="./static/images/pipeline.svg" alt="SMVRT Architecture Pipeline" style="width: 100%; border-radius: 8px;">
-
-          </p>
-        </div>
-      </div>
-    </div>
-    </div>
-</section>
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Interactive 3D Results</h2>
         <p class="content has-text-justified mb-5">
@@ -213,9 +191,16 @@
     const gtViewer = document.querySelector('#viewer-gt');
     const predViewer = document.querySelector('#viewer-pred');
 
+    // 定义一个函数：一旦用户交互，就永久移除两边的自动旋转
+    const stopAutoRotate = () => {
+      gtViewer.removeAttribute('auto-rotate');
+      predViewer.removeAttribute('auto-rotate');
+    };
+
     // 双向视角同步：当用户拖动左边时，更新右边
     gtViewer.addEventListener('camera-change', (e) => {
       if (e.detail.source === 'user-interaction') {
+        stopAutoRotate(); // 触发交互，立马停掉自转
         predViewer.cameraOrbit = `${gtViewer.getCameraOrbit().theta}rad ${gtViewer.getCameraOrbit().phi}rad ${gtViewer.getCameraOrbit().radius}m`;
         predViewer.cameraTarget = `${gtViewer.getCameraTarget().x}m ${gtViewer.getCameraTarget().y}m ${gtViewer.getCameraTarget().z}m`;
         predViewer.fieldOfView = `${gtViewer.getFieldOfView()}deg`;
@@ -225,6 +210,7 @@
     // 双向视角同步：当用户拖动右边时，更新左边
     predViewer.addEventListener('camera-change', (e) => {
       if (e.detail.source === 'user-interaction') {
+        stopAutoRotate(); // 触发交互，立马停掉自转
         gtViewer.cameraOrbit = `${predViewer.getCameraOrbit().theta}rad ${predViewer.getCameraOrbit().phi}rad ${predViewer.getCameraOrbit().radius}m`;
         gtViewer.cameraTarget = `${predViewer.getCameraTarget().x}m ${predViewer.getCameraTarget().y}m ${predViewer.getCameraTarget().z}m`;
         gtViewer.fieldOfView = `${predViewer.getFieldOfView()}deg`;
