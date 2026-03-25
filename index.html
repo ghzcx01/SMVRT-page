@@ -90,14 +90,77 @@
 
 <section class="hero teaser">
   <div class="container is-max-desktop">
-    <div class="hero-body has-text-centered">
-      <div class="box is-shadowless" style="border: 2px dashed #ccc; padding: 60px;">
-        <h2 class="subtitle has-text-grey">
-          Teaser Video / Renderings will be updated here soon.
-        </h2>
+    <div class="hero-body">
+      
+      <h2 class="subtitle has-text-centered mb-6">
+        <span class="has-text-weight-bold" style="color: #3273dc;">SMVRT</span> reconstructs highly detailed 3D human meshes from 
+        very sparse multi-view images (e.g., 4 views).
+      </h2>
+
+      <div class="columns is-vcentered is-centered">
+        
+        <div class="column is-5 has-text-centered">
+          <div class="tag is-dark is-medium mb-3">Sparse 4-View Inputs</div>
+          <div style="position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 16px rgba(0,0,0,0.1); background-color: #f5f5f5;">
+            <img src="./static/images/input_1.png" class="teaser-slide active" alt="View 1" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+            <img src="./static/images/input_2.png" class="teaser-slide" alt="View 2" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+            <img src="./static/images/input_3.png" class="teaser-slide" alt="View 3" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+            <img src="./static/images/input_4.png" class="teaser-slide" alt="View 4" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+          </div>
+        </div>
+
+        <div class="column is-2 has-text-centered">
+          <svg class="teaser-arrow" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#b5b5b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+
+        <div class="column is-5 has-text-centered">
+          <div class="tag is-info is-medium mb-3">High-Fidelity 3D Mesh</div>
+          <div style="width: 100%; aspect-ratio: 1/1; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 16px rgba(0,0,0,0.15); background-color: #ffffff;">
+            <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+              <source src="./static/videos/227.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
+</section>
+
+<style>
+  /* 隐藏非活跃的轮播图，用 opacity 实现一点极微弱的淡入避免瞎眼 */
+  .teaser-slide { opacity: 0; transition: opacity 0.1s ease-in-out; z-index: 1; }
+  .teaser-slide.active { opacity: 1; z-index: 2; }
+  
+  /* 让中间的箭头带有呼吸感地指向右边 */
+  .teaser-arrow { animation: bounceRight 1.5s infinite; }
+  @keyframes bounceRight {
+    0%, 100% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); stroke: #3273dc; }
+  }
+</style>
+
+<script>
+  // 每隔 1 秒自动切换左侧的输入视图
+  document.addEventListener("DOMContentLoaded", () => {
+    setInterval(() => {
+      const slides = document.querySelectorAll('.teaser-slide');
+      if (slides.length === 0) return;
+      
+      let currentIndex = 0;
+      slides.forEach((slide, index) => {
+        if (slide.classList.contains('active')) currentIndex = index;
+      });
+      
+      slides[currentIndex].classList.remove('active');
+      let nextIndex = (currentIndex + 1) % slides.length;
+      slides[nextIndex].classList.add('active');
+    }, 1000); // 1000毫秒 = 1秒
+  });
+</script>
 </section>
 
 <section class="section">
