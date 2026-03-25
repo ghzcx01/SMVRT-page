@@ -8,6 +8,7 @@ import argparse
 from PIL import Image
 import math
 import cv2 # 用于最后把图片直接合成视频
+import imageio
 
 def render_turntable(mesh_path, output_dir, frames=120, resolution=800, elevation_deg=0):
     print(f"Loading {mesh_path}...")
@@ -65,8 +66,12 @@ def render_turntable(mesh_path, output_dir, frames=120, resolution=800, elevatio
     frames_phase1 = 120 # 阶段1：原地平转一圈 (4秒)
     frames_phase2 = 120 # 阶段2：摇臂再转一圈 (4秒)
     
-    video_writer = cv2.VideoWriter(f"{output_dir}/317.mp4", cv2.VideoWriter_fourcc(*'mp4v'), 30, (resolution, resolution))
-
+    video_writer = imageio.get_writer(
+            f"{output_dir}/227.mp4", 
+            fps=30, 
+            codec='libx264', 
+            pixelformat='yuv420p'  # 这是网页端能顺利播放的终极魔法参数
+        )
     # ==========================================
     # 阶段 1：原地纯水平环视一圈
     # ==========================================
@@ -97,7 +102,7 @@ def render_turntable(mesh_path, output_dir, frames=120, resolution=800, elevatio
         scene.add(light_top, pose=camera_pose) 
 
         color, _ = r.render(scene)
-        video_writer.write(cv2.cvtColor(color, cv2.COLOR_RGB2BGR))
+        video_writer.append_data(color)
 
     # ==========================================
     # 阶段 2：带有摇臂效果的第二圈
@@ -136,14 +141,14 @@ def render_turntable(mesh_path, output_dir, frames=120, resolution=800, elevatio
         scene.add(light_top, pose=camera_pose) 
 
         color, _ = r.render(scene)
-        video_writer.write(cv2.cvtColor(color, cv2.COLOR_RGB2BGR))
+        video_writer.append_data(color)
 
-    video_writer.release()
+    video_writer.close()
     print(f"Done! Saved turntable_final.mp4 in {output_dir}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", default='/scratch/chenxiz/SMVRT/experiments/toy_training/evaluation_256_thuman20/meshing/0317/pred_mesh.obj', help="input mesh")#232，317
+    parser.add_argument("--input", default='/scratch/chenxiz/SMVRT/experiments/toy_training/evaluation_256_thuman20/meshing/0227/pred_mesh.obj', help="input mesh")#232，317
     parser.add_argument("--outdir", "-o", help="Output directory", default="static/videos")
     parser.add_argument("--elev", type=float, default=15.0, help="Camera elevation angle in degrees (e.g. 15 for slightly top-down)")
     args = parser.parse_args()
